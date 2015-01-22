@@ -26,6 +26,9 @@ function showJsonArraySizes(a, depth) {
 	for (; i < len; i += 1) {
 		result.push(showJsonSizes(a[i], depth - 1));
 	}
+	if (depth >= 1) {
+		result.push('TOTAL: ' + formatByteSize(arrayByteSize(a)));
+	}
 	return result;
 }
 
@@ -33,6 +36,9 @@ function showJsonObjectSizes(o, depth) {
 	var result = {};
 	for (var p in o) {
 		result[p] = showJsonSizes(o[p], depth - 1);
+	}
+	if (depth >= 1) {
+		result['TOTAL'] = formatByteSize(objByteSize(o));
 	}
 	return result;
 }
@@ -66,13 +72,22 @@ function jsonByteSize(obj) {
 	}
 	var t = typeof obj;
 	switch (t) {
-		case 'string': return obj.length + 2; // +2 because of quotes
+		case 'string': return stringByteSize(obj) + 2; // +2 because of quotes
 		case 'object': return isArray(obj)? arrayByteSize(obj) : objByteSize(obj);
 		case 'number': return new Number(obj).toString().length;
 		case 'boolean': return obj ? 4 : 5;
 	}
 
 	return 0;
+}
+
+function stringByteSize(s) {
+	return s.replace(/</g, '|u003C')
+	        .replace(/>/g, '|u003E')
+	        .replace(/"/g, '|u0022')
+	        .replace(/'/g, '|u0022')
+	        .replace(/&/g, '|u0026')
+	        .length;
 }
 
 function isScalar(o) {
