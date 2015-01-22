@@ -58,6 +58,12 @@ function arrayByteSize(a) {
 }
 
 function jsonByteSize(obj) {
+	if (obj === undefined) {
+		return 9;
+	}
+	if (obj === null) {
+		return 4;
+	}
 	var t = typeof obj;
 	switch (t) {
 		case 'string': return obj.length + 2; // +2 because of quotes
