@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": {
+    "jsonsize" : "bin/jsonsize.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tombartel/jsonsize"
@@ -16,8 +19,12 @@
   ],
   "author": "Tom Bartel",
   "license": "MIT",
+  "preferGlobal": "true",
   "bugs": {
     "url": "https://github.com/tombartel/jsonsize/issues"
   },
-  "homepage": "https://github.com/tombartel/jsonsize"
+  "homepage": "https://github.com/tombartel/jsonsize",
+  "dependencies": {
+    "commander": "^2.6.0"
+  }
 }

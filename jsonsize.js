@@ -2,7 +2,7 @@
  * showJsonSizes({ a: 'abc', b: 1234 }, 0) => '16 Bytes'
  * showJsonSizes({ a: 'abc', b: 1234 }, 1) => { a: '5 Bytes', b: '4 Bytes'}
  * showJsonSizes({ a: 'abc', b: 1234 }, -1) => { a: '5 Bytes', b: '4 Bytes'} // negative depth values means show sizes for leaves only
- * showJsonSizes([ 1234, 'abc', 'abcdefg'], 1) => [4, 5, 9]
+ * showJsonSizes([ 1234, 'abc', 'abcdefg'], 1) => ['4 Bytes' , '5 Bytes', '9 Bytes']
  */
 function showJsonSizes(obj, depth) {
 	// If we have a scalar, return the formatted byte size directly
@@ -107,3 +107,5 @@ function formatByteSize(bytes) {
 	    i = Math.floor(Math.log(bytes) / Math.log(k));
 	return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
 }
+
+module.exports = showJsonSizes;
