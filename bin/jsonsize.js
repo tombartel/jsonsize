@@ -2,7 +2,6 @@
 
 var path = require('path'),
 	pkg  = require(path.join(__dirname, '..', 'package.json')),
-	prettyjson = require('prettyjson'),
 	DEFAULT_DEPTH = 1;
 
 // Parse command line options
@@ -17,12 +16,19 @@ var depth = program.depth === undefined ? DEFAULT_DEPTH : program.depth,
 	showSizes = require(path.join(__dirname, '..', 'jsonsize'));
 
 // Read data from stdin
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', function(data) {
-//	var obj = JSON.parse(JSON.stringify(data));
-	var obj = JSON.parse(data);
-	var output = showSizes(obj, depth);
-	process.stdout.write(JSON.stringify(output, null, 4));
-});
+function readInput() {
+	process.stdin.resume();
+    var text = "";
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', function (d) {
+      text += d;
+    });
+    process.stdin.on('end', function () {
+      var obj = JSON.parse(text);
+      var output = showSizes(obj, depth);
+      process.stdout.write(JSON.stringify(output, null, 4));
+    });
+}
+
+readInput();
 
