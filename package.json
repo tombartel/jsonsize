@@ -1,13 +1,13 @@
 {
   "name": "jsonsize",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Displays the space requirements of a JSON representation of JavaScript data, at arbitrary depth levels",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "jsonsize" : "bin/jsonsize.js"
+    "jsonsize" : "bin/jsonsize"
   },
   "repository": {
     "type": "git",

@@ -47,7 +47,7 @@ function objByteSize(o) {
 	var size = 0,
 	    commaSize = 0;
 	for (var p in o) {
-		size += p.length + jsonByteSize(o[p]) + 1 + commaSize; // +1 because of colon
+		size += p.length + jsonByteSize(o[p]) + 3 + commaSize; // +3 because of colon and quotes around key
 		commaSize = 1;
 	}
 	return size + 2; // +2 because of braces
@@ -103,9 +103,12 @@ function formatByteSize(bytes) {
 		return '0 Byte';
 	}
 	var k = 1000,
-	    sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+	    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
 	    i = Math.floor(Math.log(bytes) / Math.log(k));
-	return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+	    num = (bytes / Math.pow(k, i)).toPrecision(3);
+    num = num.replace(/0+$/, '');
+    num = num.replace(/\.$/, '');
+	return num + ' ' + sizes[i];
 }
 
 module.exports = showJsonSizes;
