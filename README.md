@@ -1,4 +1,5 @@
 # jsonsize
+
 Command line utility that displays the approximate space requirements of a JSON representation of JavaScript
 data, summarized at arbitrary depth levels (default 1).
 
@@ -9,6 +10,7 @@ $ npm install -g jsonsize
 ```
 
 ## Usage
+
 This example queries the [reddit API](https://github.com/reddit/reddit/wiki/JSON), and passes the JSON response to
 jsonsize:
 ```
@@ -23,6 +25,7 @@ We can see that the total size is around 27.8 KB. There are 2 top-level entries,
 takes up 9 Bytes, while the "data" value takes up almost all the space.
 
 ### Varying the summary depth
+
 You can play with the _-d_ (also _--depth_) parameter to get size summaries on various depth levels:
 ```
 $ curl -s http://www.reddit.com/r/pics.json | jsonsize -d 2
@@ -83,5 +86,15 @@ $ curl -s http://www.reddit.com/r/pics.json | jsonsize -d 2
     "TOTAL": "27.9 KB"
 }
 ```
+
+## Assumptions
+
+jsonsize assumes that strings are encoded in [RFC4627](http://www.ietf.org/rfc/rfc4627.txt)-compliant fashion,
+meaning that <, >, ", ', and & are replaced by their unicode escape sequences (e.g., \u003C for <).
+
+
+## License
+
+jsonsize is distributed under the MIT License.
 
 
